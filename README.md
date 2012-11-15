@@ -137,7 +137,7 @@ The `node` command is available. Also the `npm` command for installing packages 
 
 If you need to deploy node apps to VPSes or dedicated servers, consider using [Stagecoach](http://github.com/punkave/stagecoach). [Heroku](http://heroku.com) is also a popular choice for Node app deployment.
 
-## Future directions for the s
+## Future directions for the Loadout
 
 Right now the P'unk Avenue Loadout still requires a fair number of manual steps. We look forward to automating more of them. And of course we look forward to your pull requests as well.
 
