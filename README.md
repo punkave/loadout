@@ -93,7 +93,24 @@ Next, look for the `User` setting in `httpd.conf` and change that username from 
 
 This ensures that Apache (and PHP) run with the same permissions as your personal account. This is recommended for development purposes to avoid permissions hassles when you want to modify files that have been touched by the website. (On production Linux servers we also configure Apache to run as the same user we run command line tasks with, because they share the same set of concerns and the server is usually a VPS or dedicated server whose only job is to run a particular website.)
 
-10\. **Restart Apache**.
+Finally, locate the `<Directory />` block and adjust it to be more generous with permissions so that we can test dynamic PHP-powered websites that use rewrite rules and the like, such as typical Symfony projects:
+
+    <Directory />
+        # PHP is the preferred index for a folder
+        DirectoryIndex index.php index.html
+        # Necessary for mod_rewrite to work
+        Options FollowSymLinks
+        # Generous permissions for .htaccess
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+        # Necessary for VirtualDocumentRoot to work
+        UseCanonicalName off
+    </Directory>
+
+10\. **Configure PHP**. Copy the provided `php.ini` file to `/opt/local/etc/php5/php.ini` or read it over and consider our choices. Make sure you edit the `date.timezone` setting.
+
+11\. **Restart Apache**.
 
     sudo apachectl restart
 
