@@ -93,6 +93,16 @@ Next, look for the `User` setting in `httpd.conf` and change that username from 
 
 This ensures that Apache (and PHP) run with the same permissions as your personal account. This is recommended for development purposes to avoid permissions hassles when you want to modify files that have been touched by the website. (On production Linux servers we also configure Apache to run as the same user we run command line tasks with, because they share the same set of concerns and the server is usually a VPS or dedicated server whose only job is to run a particular website.)
 
+Edit your Apache configuration to load mod_php5 if it does not already do so by adding this line if it is not present:
+
+    LoadModule php5_module modules/libphp5.so
+
+And also load the standard configuration for PHP provided by MacPorts:
+
+    Include conf/extra/mod_php.conf
+
+(Some versions of MacPorts may do these steps for you, so make sure these lines are not duplicates.)
+
 Finally, locate the `<Directory />` block and adjust it to be more generous with permissions so that we can test dynamic PHP-powered websites that use rewrite rules and the like, such as typical Symfony projects:
 
     <Directory />
